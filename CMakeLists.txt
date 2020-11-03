@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.9)
-project(SFML_Test)
+
+project(SFML_Test2)
 
 set(CompilerFlags
         CMAKE_CXX_FLAGS
@@ -11,11 +12,9 @@ set(CompilerFlags
         )
 
 if(MSVC)
-    add_compile_options(
-        $<$<CONFIG:>:/MT> #---------|
-        $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
-        $<$<CONFIG:Release>:/MT> #--|
-    )
+    foreach(CompilerFlag ${CompilerFlags})
+        string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+    endforeach()
 	set(SFML_STATIC_LIBRARIES TRUE)
 	set(SFML_DIR "C:/SFML-2.5.1_windows_VS15.6_static/lib/cmake/SFML")
 endif()
@@ -24,9 +23,9 @@ SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
 
 
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics window main system REQUIRED)
 
 set(TEST_SRCS "main.cpp")
 
-add_executable (SFML_Test ${TEST_SRCS})
-target_link_libraries(SFML_Test sfml-graphics sfml-window)
+add_executable (SFML_Test2 ${TEST_SRCS})
+target_link_libraries(SFML_Test2 sfml-graphics sfml-window sfml-main)
