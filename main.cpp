@@ -3,13 +3,14 @@
 #include <iostream>
 #include <array>
 #include <string>
+#include <tuple>
 
 #include <SFML/Graphics.hpp>
 
 
 #ifdef _MSC_VER 
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define _PATH_FONT_ "../../../font/"
+#define _PATH_FONT_ "../../font/"
 #else
 #define _PATH_FONT_ "../font/"
 #endif
@@ -57,9 +58,7 @@ int main() {
 	assert(sizeof(color_values) / sizeof(color_values[0]) > rectangles.size());
 
 
-	auto irec  = rectangles.begin();
-	auto itext = textes.begin();
-	for (; irec != rectangles.end();++irec, ++itext) {
+	for (auto [irec, itext] = std::tuple{rectangles.begin(),textes.begin()}; irec != rectangles.end(); ++irec, ++itext) {
 		const my_color& c = color_values[++i];
 		irec->setSize(sf::Vector2f(1, 10));
 		irec->setPosition(sf::Vector2f(10, position_y));
@@ -147,9 +146,7 @@ int main() {
 	
 		app.clear();
 
-		auto irec = rectangles.begin();
-		auto itext = textes.begin();
-		for (; irec != rectangles.end(); ++irec, ++itext) {
+		for (auto [irec, itext] = std::tuple{ rectangles.begin(),textes.begin() }; irec != rectangles.end(); ++irec, ++itext) {
 			app.draw(*irec);
 			itext->setPosition(sf::Vector2f(position_text, irec->getPosition().y));
 			itext->setString(std::to_string(irec->getSize().x));
