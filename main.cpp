@@ -11,7 +11,7 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #define _PATH_FONT_ "../../../font/"
 #else
-#define _PATH_FONT_ "../img/"
+#define _PATH_FONT_ "../font/"
 #endif
 
 using namespace std;
