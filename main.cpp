@@ -140,6 +140,8 @@ int main() {
 					rectangles[which_bar].setOutlineThickness(1);
 					rectangles[which_bar].setOutlineColor(outlinecolor);
 					break;
+				default :
+					break; 
 				}
 			}
 		}
